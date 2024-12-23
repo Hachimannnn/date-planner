@@ -1,0 +1,375 @@
+/* Basic styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background: linear-gradient(to right, #ff9a9e, #fad0c4);
+    color: #333;
+    text-align: center;
+    padding: 2em;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2em;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px; 
+}
+
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 0.5em;
+    color: #ff6f61;
+}
+
+p {
+    font-size: 1.2em;
+}
+
+button {
+    background-color: #ff6f61;
+    color: white;
+    border: none;
+    padding: .75em 1.5em;
+    font-size: 1.2em;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #e0554b;
+}
+
+#step4 h3, p {
+    margin-top: 2%;
+}
+
+#step4 button {
+    margin-top: 5%;
+}
+
+/* Date and time picker  */
+#date-form {
+    margin-top: 7%;
+}
+
+.date-picker {
+    margin-top: 2em;
+}
+
+.time-container {
+    display: flex;
+    justify-content: space-between; 
+    width: 100%;
+    max-width: 500px; 
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.time-input {
+    flex: 1;
+    margin: 0 10px; /
+}
+
+input[type="time"] {
+    width: 100%;
+}
+
+
+input[type="date"], input[type="time"] {
+    padding: 0.5em;
+    font-size: 1.2em;
+    border: 2px solid #ff6f61;
+    border-radius: 5px;
+    outline: none;
+    background: white;
+    color: #333;
+    transition: all 0.3s ease;
+    appearance: none; 
+    cursor: pointer;  
+    width: 100%;
+    max-width: 150px;
+    margin-top: 2%;
+}
+
+input[type="date"]:focus, input[type="time"]:focus {
+    border-color: #e0554b;
+    background: #fff5f5;
+}
+
+input[type="submit"] {
+    background: #ff6f61;
+    color: white;
+    border: none;
+    padding: 0.7em 1.5em;
+    font-size: 1.2em;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 1em;
+    transition: background 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background: #e0554b;
+}
+
+input[type="date"]:hover, 
+input[type="time"]:hover {
+    border-color: #ff6f61;  
+    background: #fff0f0;    
+    transform: scale(1.05); 
+    transition: all 0.3s ease-in-out;
+}
+
+/* Step Transition Styles */
+.step {
+    display: none;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease-in-out;
+}
+
+.step.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+    animation: bounceIn 0.6s ease-in-out;
+}
+
+.step-transition {
+    opacity: 0;
+    transform: translateY(-20px);
+}
+
+/* Animations  */
+@keyframes bounceIn {
+    0% { transform: scale(0.9); opacity: 0; }
+    50% { transform: scale(1.1); opacity: 0.5; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes popup {
+    0% { 
+        opacity: 0; 
+        transform: translateY(-20px); 
+    }
+    100% { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: popup 0.5s ease-out; 
+}
+
+.modal-content {
+    background: white;
+    padding: 2em;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.modal-content p {
+    font-size: 1.2em;
+    margin-bottom: 1em;
+}
+
+.modal-content button {
+    padding: 0.7em 1.5em;
+    font-size: 1.2em;
+    background: #ff6f61;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.modal-content button:hover {
+    background: #e0554b;
+}
+
+/* Photobooth options  */
+.option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    padding: 1em;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: calc(33.33% - 1em);
+    box-sizing: border-box;
+    max-width: 200px;
+    cursor: pointer;
+    margin-left: 1em;
+}
+
+.option img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 1em;
+    background-color: #f0f0f0;
+}
+
+.option button {
+    margin-top: 1em; 
+}
+
+.option:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.ptb-options .option button {
+    width: 150px;  
+    height: 40px;  
+    font-size: 16px;  
+    padding: 10px; 
+}
+
+/* Selected option */
+.selected {
+    background-color: #ff6f61; 
+    color: white;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    transform: scale(1.05);
+    transition: all 0.3s ease; 
+}
+
+/* 'Yes' and 'No' buttons */
+.ad-options {
+    display: flex;
+    justify-content: center; 
+    gap: 2em; 
+    margin-bottom: 2em;
+    margin-top: 2%;
+}
+
+.ad-options button {
+    padding: .75em 1em;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Option buttons */
+.ad-options button:active {
+    background-color: #e0554b;
+    transform: scale(0.98);
+}
+
+.ad-options button.selected {
+    background-color: #e0554b; 
+}
+
+.ad-options button#yesBtn {
+    background-color: rgb(43, 255, 43); 
+}
+
+.ad-options button#noBtn {
+    background-color: rgb(255, 43, 43); 
+}
+
+/* Activity input */
+#activity-input {
+    display: block; 
+    margin-top: 1em;
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto; 
+    height: 0; 
+    padding: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out, height 0.3s ease-in-out; 
+}
+
+#activity-input.open {
+    height: 200px; 
+    padding: 1em;
+    opacity: 1; 
+}
+
+#activity-input label {
+    font-size: 1.1em;
+    margin-bottom: .5em;
+    display: block;
+}
+
+#activity-input textarea {
+    width: 100%;
+    padding: .5em;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+    text-align: center;
+    height: 120px;
+}
+
+/* Thank You Modal */
+#thank-you-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+#thank-you-modal .modal-content {
+    background: white;
+    padding: 20px;
+    text-align: center;
+    border-radius: 8px;
+    width: 300px;
+    position: relative; 
+}
+
+#thank-you-modal iframe {
+    width: 100%;    
+    height: 200px;  
+    border: none;   
+    border-radius: 8px; 
+    margin-top: 10px; 
+    display: block;   
+}
