@@ -1,5 +1,6 @@
 // Step navigation
 function nextStep(step) {
+    console.log('nextStep called for step:', step);
     if (step === 1) {
         const date = document.getElementById('date').value;
         const startTime = document.getElementById('start-time').value;
