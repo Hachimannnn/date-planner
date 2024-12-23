@@ -144,7 +144,7 @@ async function resetForm() {
     };
 
     try {
-        const response = await fetch("https://script.google.com/macros/s/AKfycbwer05kcjwx3AxbghSg_eNJD6pcihLC5T9s80iWzbwgQkGAXfPBVn6-ypmTJXx63d-m/exec", {
+        const response = await fetch("https://script.google.com/macros/s/AKfycbwa75os0rUTpaSYsdr49SX1i1gayFOoEvtSV-mlldX0au-L4VLVuvx6jcNMbrTNvRiD/exec", {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
