@@ -47,15 +47,15 @@
             <p>We’ve set a date! Now, where do you want to take our photos?</p>
             <div style="margin-top: 5%; display: flex; flex-wrap: wrap; justify-content: center;" class="ptb-options">
                 <div class="option" onclick="selectSpot(this)">
-                    <img src="https://scontent.fhan18-1.fna.fbcdn.net/v/t39.30808-6/397963717_122099701916099701_828889002750666834_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeHwlwnhJna2XwGYWxJrinJVo8B7PHECCLmjwHs8cQIIuTlbAhzf_GztpbqHRjZHQNhpX1229CTeIqeXLCkQP6zr&_nc_ohc=IBlt_9xVLaUQ7kNvgGt132O&_nc_oc=AdgVTQraLL1dSHFSuA_cnHRMmg-kGstckl_VLngNXGJoxOXFoEDHohPqDwQeeKf-Sdo&_nc_zt=23&_nc_ht=scontent.fhan18-1.fna&_nc_gid=AjSaibFBGTo7wSE-uogmLe0&oh=00_AYBo17RbSigmw_POKbFeP1ES06GSxV24qgiF-OYTuztFGw&oe=676C8165" alt="Photoism">
+                    <img src="photoism.jpg" alt="Photoism">
                     <button>Photoism</button>
                 </div>
                 <div class="option" onclick="selectSpot(this)">
-                    <img src="https://scontent.fhan18-1.fna.fbcdn.net/v/t39.30808-6/347550766_2238675352986212_3329997567558082794_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeGRdb84FjkGdWENkxPUWNlxysxVYVkMTrbKzFVhWQxOtinHeG-1x3UGuEuq1_3LPV80DMJ6Ac5zmOqiO1AVT8OJ&_nc_ohc=52PA1P8zAU0Q7kNvgFGPHfj&_nc_oc=AdhpeQiW04btPk3IBypfsPZntsvfkbxkoWkjjlp47P1YnBvuMbu6KyHqplmLZVjNDwA&_nc_zt=23&_nc_ht=scontent.fhan18-1.fna&_nc_gid=AtuyW_U_oehSIw5CZMjFNqG&oh=00_AYBYvWR0QTQE1GiVhKFg26Pcr7UOD17-RC6ZNiSlLQ11nA&oe=676CA194" alt="Photo Palette">
+                    <img src="photo-palette.jpg" alt="Photo Palette">
                     <button>Photo Palette</button>
                 </div>
                 <div class="option" onclick="selectSpot(this)">
-                    <img src="https://scontent.fhan18-1.fna.fbcdn.net/v/t39.30808-6/470576796_524621240568360_631252508832044909_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeHO0mSgO1S359vFY5_MyCvwYaXS0mQmDd5hpdLSZCYN3lHk0xr8MKsoxdexSrTb_1zMV1SJBgwsjSYHZp60my-4&_nc_ohc=EJjOtMDKBM0Q7kNvgEicZKV&_nc_oc=Adg0IheAMnnelhPLHBg7ClIfAxinClLmtwjB7FVWq1VpofGBK_PatPOZW_u9fhKerSc&_nc_zt=23&_nc_ht=scontent.fhan18-1.fna&_nc_gid=A5njhFLUMF_kHfS0tAFpc9W&oh=00_AYCmUHmVElFNP3N2dOYbT0q9bElMleQpzJLaIkEUZzag7Q&oe=676C95CF" alt="Mothaiba">
+                    <img src="mothaiba.jpg" alt="Mothaiba">
                     <button>Mothaiba</button>
                 </div>
             </div>
@@ -81,7 +81,7 @@
         <div id="step4" class="step">
             <h2>Step 4: Confirm Your Date</h2>
             <div id="date-info"></div>
-            <button type="button" onclick="resetForm()">Send</button>
+            <button type="button" onclick="sendData()">Send</button>
         </div>
 
         <!-- Thank You Modal Popup -->
@@ -96,6 +96,200 @@
         </div>
     </div>
 
-<script src="index.js"></script>
+    <script type="module">
+        // Firebase imports with the modular SDK
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js';
+        import { getFirestore, collection, addDoc } from 'https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js';
+      
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyB3x8nnrKiUG-GmELicMQVtr1-UVhBr3W8",
+            authDomain: "christmas-project-122024.firebaseapp.com",
+            projectId: "christmas-project-122024",
+            storageBucket: "christmas-project-122024.firebasestorage.app",
+            messagingSenderId: "370205594824",
+            appId: "1:370205594824:web:73949bf556874864d701fd",
+            measurementId: "G-YV41V7Q2N2"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+    
+        // Functions for each step 
+        window.nextStep = function(step) {
+            console.log('nextStep called for step:', step);
+            if (step === 1) {
+                const date = document.getElementById('date').value;
+                const startTime = document.getElementById('start-time').value;
+                const endTime = document.getElementById('end-time').value;
+    
+                if (!date || !startTime || !endTime) {
+                    showModal("Please fill the date and time!");
+                    return;
+                }
+            }
+    
+            if (step === 2) {
+                const selectedSpot = document.querySelector('.option.selected');
+                if (!selectedSpot) {
+                    showModal("Please choose a photobooth spot!");
+                    return;
+                }
+            }
+    
+            if (step === 3) {
+                const yesButton = document.getElementById('yesBtn');
+                const noButton = document.getElementById('noBtn');
+                if (!yesButton.classList.contains('selected') && !noButton.classList.contains('selected')) {
+                    showModal("Please choose an option!");
+                    return;
+                }
+    
+                if (yesButton.classList.contains('selected')) {
+                    const activityTextarea = document.getElementById('activity-textarea').value.trim();
+                    if (!activityTextarea) {
+                        showModal("You have to write something!");
+                        return;
+                    }
+                }
+                populateFinalStep();
+            }
+    
+            const currentStep = document.querySelector('.step.active');
+            if (!currentStep) {
+                console.error("No active step found.");
+                return;
+            }
+    
+            currentStep.classList.remove('active'); 
+            const nextStepElement = document.getElementById(`step${step + 1}`);
+            
+            if (!nextStepElement) {
+                console.log("No further steps available.");
+                return;
+            }
+    
+            nextStepElement.classList.add('active'); 
+        };
+    
+        window.selectSpot = function(element) {
+            document.querySelectorAll('.option').forEach(s => s.classList.remove('selected'));
+            element.classList.add('selected');
+        };
+    
+        window.selectButton = function(choice) {
+            const yesButton = document.getElementById('yesBtn');
+            const noButton = document.getElementById('noBtn');
+            const activityInput = document.getElementById('activity-input');
+    
+            yesButton.classList.remove('selected');
+            noButton.classList.remove('selected');
+    
+            if (choice === 'yes') {
+                yesButton.classList.add('selected');
+                activityInput.classList.add('open'); 
+            } else {
+                noButton.classList.add('selected');
+                activityInput.classList.remove('open'); 
+            }
+        };
+    
+        function formatTimeTo12Hour(time) {
+            const [hour, minute] = time.split(':').map(num => parseInt(num, 10));
+            const isAM = hour < 12;
+            const formattedHour = hour % 12 || 12; 
+            const formattedMinute = minute < 10 ? `0${minute}` : minute;
+            const period = isAM ? 'AM' : 'PM';
+            return `${formattedHour}:${formattedMinute} ${period}`;
+        }
+    
+        function populateFinalStep() {
+            const date = document.getElementById('date').value;
+            const startTime = document.getElementById('start-time').value;
+            const endTime = document.getElementById('end-time').value;
+            const selectedSpot = document.querySelector('.option.selected button')?.textContent || "No spot selected";
+            const additionalActivity = document.getElementById('yesBtn').classList.contains('selected')
+                ? document.getElementById('activity-textarea').value.trim() || "No activity specified"
+                : "No additional activity";
+    
+            const formattedStartTime = formatTimeTo12Hour(startTime);
+            const formattedEndTime = formatTimeTo12Hour(endTime);
+    
+            const summaryHTML = `
+                <h3>Your Date Details:</h3>
+                <p><strong>Date:</strong> ${date}</p>
+                <p><strong>Time:</strong> ${formattedStartTime} - ${formattedEndTime}</p>
+                <p><strong>Photobooth Spot:</strong> ${selectedSpot}</p>
+                <p><strong>Additional Activity:</strong> ${additionalActivity}</p>
+            `;
+    
+            document.getElementById('date-info').innerHTML = summaryHTML;
+        }
+    
+        function showModal(message) {
+            const popupMessage = document.getElementById('popup-message');
+            const modal = document.getElementById('popup-modal');
+            popupMessage.textContent = message;
+            modal.style.display = 'flex';
+        }
+    
+        window.closeModal = function() {
+            document.getElementById('popup-modal').style.display = 'none';
+        };
+    
+        window.closeThankYouModal = function() {
+            document.getElementById('thank-you-modal').style.display = 'none';
+        };
+    
+        window.sendData = async function() {
+            const date = document.getElementById('date').value;
+            const startTime = document.getElementById('start-time').value;
+            const endTime = document.getElementById('end-time').value;
+            const selectedSpot = document.querySelector('.option.selected button')?.textContent || "No spot selected";
+            const additionalActivity = document.getElementById('yesBtn').classList.contains('selected')
+                ? document.getElementById('activity-textarea').value.trim() || "No activity specified"
+                : "No additional activity";
+
+            const formattedStartTime = formatTimeTo12Hour(startTime);
+            const formattedEndTime = formatTimeTo12Hour(endTime);
+
+            populateFinalStep();
+
+            const thankYouModal = document.getElementById('thank-you-modal');
+            thankYouModal.style.display = 'flex';
+
+            setTimeout(() => {
+                thankYouModal.style.display = 'none';
+                document.getElementById('date-form').reset(); 
+
+                const steps = document.querySelectorAll('.step');
+                steps.forEach(step => step.classList.remove('active'));
+
+                document.getElementById('step1').classList.add('active');
+                document.querySelectorAll('.option').forEach(option => option.classList.remove('selected'));
+                document.getElementById('yesBtn').classList.remove('selected');
+                document.getElementById('noBtn').classList.remove('selected');
+                document.getElementById('activity-input').style.display = 'none';
+                document.getElementById('popup-modal').style.display = 'none';
+            }, 5000); 
+
+            const data = {
+                date: date,
+                startTime: formattedStartTime, 
+                endTime: formattedEndTime,     
+                spot: selectedSpot,
+                activity: additionalActivity
+            };
+
+            try {
+                await addDoc(collection(db, "appointments"), data);
+                console.log("Document written with ID: ", data);
+            } catch (e) {
+                console.error("Error adding document: ", e);
+            }
+        };
+    </script> 
+    
 </body>
 </html>
