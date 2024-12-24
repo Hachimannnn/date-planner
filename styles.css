@@ -248,19 +248,19 @@ input[type="time"]:hover {
 
 .option:hover {
     transform: scale(1.05);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 15px rgba(255, 215, 0, 0.4);
 }
 
 .ptb-options .option button {
-    width: 150px;  
-    height: 40px;  
+    width: 100%;  
+    height: 35%;  
     font-size: 16px;  
     padding: 10px; 
 }
 
 /* Selected option */
 .selected {
-    background-color: #ff6f61; 
+    background-color: #ffb7ad; 
     color: white;
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
     transform: scale(1.05);
